@@ -14,6 +14,9 @@
 <body>
     <input id="name" type="text">
     <button id="search-button">Search</button>
+    <div id="show-item">
+
+    </div>
     <script>
         const searchBtn = document.getElementById('search-button');
         searchBtn.addEventListener('click', () => {
@@ -21,13 +24,24 @@
             getItemName(inputName)
         })
         function getItemName(name) {
-            console.log(name);
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => console.log(data))
-}
-       
+            const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => updateUI(data))
+        };
+
+        function updateUI(items) {
+            
+            const itemDiv = document.getElementById('show-item');
+            const itemInfo = `
+            <img src = "${items.meals[0].strMealThumb}">
+            <h1>${items.meals[0].strCategory}</h1>
+            
+            `
+            itemDiv.innerHTML = itemInfo;
+            console.log(itemInfo);
+            console.log(items)  
+            }
     </script>
 </body>
 
