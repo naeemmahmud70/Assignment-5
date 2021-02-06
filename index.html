@@ -14,34 +14,65 @@
 <body>
     <input id="name" type="text">
     <button id="search-button">Search</button>
+    <div id="item-details">
+
+    </div>
     <div id="show-item">
 
     </div>
     <script>
+        //search area.
         const searchBtn = document.getElementById('search-button');
         searchBtn.addEventListener('click', () => {
             const inputName = document.getElementById('name').value;
-            getItemName(inputName)
-        })
+            getItemName(inputName);
+
+
+        });
+        //item area.
         function getItemName(name) {
             const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
             fetch(url)
                 .then(response => response.json())
-                .then(data => updateUI(data))
+                .then(data => updateUI(data));
         };
 
+
         function updateUI(items) {
-            
             const itemDiv = document.getElementById('show-item');
             const itemInfo = `
-            <img src = "${items.meals[0].strMealThumb}">
+            <img onclick = "getItemDetails('${items.meals[0].strCategory}')" src = "${items.meals[0].strMealThumb}">
             <h1>${items.meals[0].strCategory}</h1>
-            
             `
             itemDiv.innerHTML = itemInfo;
-            console.log(itemInfo);
-            console.log(items)  
-            }
+        };
+
+
+        // item details area.
+        function getItemDetails(name) {
+            const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => updateDetailsUI(data));
+        };
+
+
+        function updateDetailsUI(items) {
+            const itemDetails = document.getElementById('item-details');
+            const itemDetailsInfo = `
+             <img src = "${items.meals[0].strMealThumb}">
+             <h1>${items.meals[0].strCategory}</h1>
+             <p>${items.meals[0].strIngredient1}</p>
+             <p>${items.meals[0].strIngredient10}</p>
+             <p>${items.meals[0].strIngredient11}</p>
+             <p>${items.meals[0].strIngredient12}</p>
+             <p>${items.meals[0].strIngredient13}</p>
+             <p>${items.meals[0].strIngredient14}</p>
+             <p>${items.meals[0].strIngredient15}</p>
+             <p>${items.meals[0].strIngredient16}</p>
+            `
+            itemDetails.innerHTML = itemDetailsInfo;
+        };
     </script>
 </body>
 
