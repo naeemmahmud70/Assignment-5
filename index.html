@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment-5</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
+
 <body>
-    
-    <script src="app.js"></script>
+    <input id="name" type="text">
+    <button id="search-button">Search</button>
+    <script>
+        const searchBtn = document.getElementById('search-button');
+        searchBtn.addEventListener('click', () => {
+            const inputName = document.getElementById('name').value;
+            getItemName(inputName)
+        })
+        function getItemName(name) {
+            console.log(name);
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+}
+       
+    </script>
 </body>
+
 </html>
