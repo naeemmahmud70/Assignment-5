@@ -4,34 +4,30 @@ searchBtn.addEventListener('click', () => {
     document.getElementById('show-item').innerHTML = "";
     const inputName = document.getElementById('name').value;
     getItemName(inputName);
-
-
 });
+
+
 //item area.
 const getItemName = name => {
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${name}`;
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     fetch(url)
         .then(response => response.json())
-        .then(data => displayFoods(data.meals));
-};
-
-
-const displayFoods = foods => {
-    const foodsDiv = document.getElementById('show-item');
-    foods.forEach(food => {
-        const div = document.createElement('div');
-        div.className = "foodsDiv-style"
-        const foodInfo = `
-         <img onclick = "getItemDetails('${food.strCategory}')" src = "${food.strMealThumb}">
-         <h1>${food.strCategory}</h1>
-         `
-        div.innerHTML = foodInfo;
-        foodsDiv.appendChild(div);
-        document.getElementById('name').value = "";
-    }
-    )};
-       
-
+        .then(data => {
+            const foodsDiv = document.getElementById('show-item');
+            data.meals.forEach(food => {
+                const div = document.createElement('div');
+                div.className = "foodsDiv-style"
+                const foodInfo = `
+                 <img onclick = "getItemDetails('${food.strCategory}')" src = "${food.strMealThumb}">
+                 <h1>${food.strCategory}</h1>
+                 `
+                div.innerHTML = foodInfo;
+                foodsDiv.appendChild(div);
+                document.getElementById('name').value = "";
+            });
+        })
+        .catch(err => alert('Please give a valid name'))
+}
 
 
 // item details area.
