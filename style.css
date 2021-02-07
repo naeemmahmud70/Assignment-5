@@ -2,5 +2,16 @@
     width: 200px;
 }
 #item-details img{
-    width: 300px;
+    width: 200px;
+}
+#show-item{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(4,1fr);
+}
+#item-details{
+    text-align: center;
+}
+.foodsDiv-style{
+    text-align: center;
 }

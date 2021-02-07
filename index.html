@@ -21,6 +21,7 @@
 
     </div>
     <script>
+
         //search area.
         const searchBtn = document.getElementById('search-button');
         searchBtn.addEventListener('click', () => {
@@ -31,33 +32,37 @@
         });
         //item area.
         function getItemName(name) {
-            const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+            const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${name}`;
             fetch(url)
                 .then(response => response.json())
-                .then(data => updateUI(data));
+                .then(data => displayFoods(data.meals));
         };
 
-
-        function updateUI(items) {
-            const itemDiv = document.getElementById('show-item');
-            const itemInfo = `
-            <img onclick = "getItemDetails('${items.meals[0].strCategory}')" src = "${items.meals[0].strMealThumb}">
-            <h1>${items.meals[0].strCategory}</h1>
-            `
-            itemDiv.innerHTML = itemInfo;
-        };
-
-
+        function displayFoods(foods) {
+            const foodsDiv = document.getElementById('show-item')
+            for (let i = 0; i < foods.length; i++) {
+                const food = foods[i];
+                const div = document.createElement('div');
+                div.className = "foodsDiv-style"
+                const foodInfo = `
+                <img onclick = "getItemDetails('${food.strCategory}')" src = "${food.strMealThumb}">
+                <h1>${food.strCategory}</h1>
+                `
+                div.innerHTML = foodInfo;
+                foodsDiv.appendChild(div);
+            }
+        }
         // item details area.
         function getItemDetails(name) {
+            console.log(name)
             const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => updateDetailsUI(data));
         };
 
-
         function updateDetailsUI(items) {
+            console.log(items)
             const itemDetails = document.getElementById('item-details');
             const itemDetailsInfo = `
              <img src = "${items.meals[0].strMealThumb}">
@@ -71,8 +76,71 @@
              <p>${items.meals[0].strIngredient15}</p>
              <p>${items.meals[0].strIngredient16}</p>
             `
+            console.log(itemDetailsInfo)
             itemDetails.innerHTML = itemDetailsInfo;
         };
+
+
+
+
+
+
+
+
+
+
+        // //search area.
+        // const searchBtn = document.getElementById('search-button');
+        // searchBtn.addEventListener('click', () => {
+        //     const inputName = document.getElementById('name').value;
+        //     getItemName(inputName);
+
+
+        // });
+        // //item area.
+        // function getItemName(name) {
+        //     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => updateUI(data));
+        // };
+
+
+        // function updateUI(items) {
+        //     const itemDiv = document.getElementById('show-item');
+        //     const itemInfo = `
+        //     <img onclick = "getItemDetails('${items.meals[0].strCategory}')" src = "${items.meals[0].strMealThumb}">
+        //     <h1>${items.meals[0].strCategory}</h1>
+        //     `
+        //     itemDiv.innerHTML = itemInfo;
+        // };
+
+
+        // // item details area.
+        // function getItemDetails(name) {
+        //     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => updateDetailsUI(data));
+        // };
+
+
+        // function updateDetailsUI(items) {
+        //     const itemDetails = document.getElementById('item-details');
+        //     const itemDetailsInfo = `
+        //      <img src = "${items.meals[0].strMealThumb}">
+        //      <h1>${items.meals[0].strCategory}</h1>
+        //      <p>${items.meals[0].strIngredient1}</p>
+        //      <p>${items.meals[0].strIngredient10}</p>
+        //      <p>${items.meals[0].strIngredient11}</p>
+        //      <p>${items.meals[0].strIngredient12}</p>
+        //      <p>${items.meals[0].strIngredient13}</p>
+        //      <p>${items.meals[0].strIngredient14}</p>
+        //      <p>${items.meals[0].strIngredient15}</p>
+        //      <p>${items.meals[0].strIngredient16}</p>
+        //     `
+        //     itemDetails.innerHTML = itemDetailsInfo;
+        // };
     </script>
 </body>
 
