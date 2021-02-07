@@ -1,3 +1,6 @@
+body{
+    background-color:coral;
+}
 #show-item img{
     width: 200px;
 }
@@ -8,9 +11,6 @@
     display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(4,1fr);
-}
-#item-details{
-    text-align: center;
 }
 .foodsDiv-style{
     text-align: center;
